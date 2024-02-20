@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - v3
+      - next
 
 permissions:
   contents: read # for checkout
@@ -19,27 +19,34 @@ jobs:
       id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v3
         with:
-          version: 8.x
+          version: 8
+
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.16.0
-      - name: Remove .npmrc # Because of issue with pnpm automatically fetching nodejs executable
-        run: rm .npmrc
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
       - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+        run: pnpm install
+
       - name: Lint
         run: pnpm run lint
+
       - name: Test
         run: pnpm run test
+
       - name: Build
         run: pnpm run build
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
