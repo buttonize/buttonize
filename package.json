@@ -1,0 +1,83 @@
+{
+	"name": "buttonize",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"license": "MIT",
+	"type": "module",
+	"homepage": "https://buttonize.io",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:buttonize/buttonize.git"
+	},
+	"bugs": {
+		"url": "https://github.com/buttonize/buttonize/issues"
+	},
+	"scripts": {
+		"prepare": "husky install",
+		"build": "tsc --project tsconfig.release.json && cp package.json dist",
+		"build:watch": "tsc --project tsconfig.release.json --watch",
+		"test": "vitest",
+		"test:watch": "vitest --watch",
+		"lint": "eslint 'src' 'test' --quiet --ext .ts",
+		"lint:fix": "pnpm run lint --fix",
+		"typecheck": "tsc --noEmit"
+	},
+	"author": {
+		"name": "Buttonize",
+		"url": "https://buttonize.io",
+		"organization": "Buttonize"
+	},
+	"devDependencies": {
+		"@aws-sdk/client-sns": "^3.414.0",
+		"@commitlint/cli": "^16.0.0",
+		"@commitlint/config-conventional": "^16.0.0",
+		"@tsconfig/node20": "^20.1.2",
+		"@types/aws-lambda": "^8.10.109",
+		"@types/node": "^18",
+		"@types/traverse": "^0.6.36",
+		"@typescript-eslint/eslint-plugin": "^6",
+		"@typescript-eslint/parser": "^6",
+		"@vitest/coverage-v8": "^1.2.2",
+		"aws-cdk-lib": "2.95.1",
+		"constructs": "10.0.5",
+		"eslint": "^8",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-import-resolver-node": "^0.3.6",
+		"eslint-import-resolver-typescript": "^2.5.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-simple-import-sort": "^7.0.0",
+		"husky": "^7.0.4",
+		"lint-staged": "^11.2.6",
+		"prettier": "^2.5.1",
+		"semantic-release": "^21.1.1",
+		"typescript": "5.x",
+		"vitest": "^1.2.2"
+	},
+	"peerDependencies": {
+		"aws-cdk-lib": ">= 2.95.1 < 3",
+		"constructs": ">= 10.0.5 < 11"
+	},
+	"keywords": [
+		"aws",
+		"aws-cdk",
+		"buttonize",
+		"cdk",
+		"serverless"
+	],
+	"engines": {
+		"node": ">= 18.16.0"
+	},
+	"publishConfig": {
+		"access": "public",
+		"directory": "dist"
+	},
+	"lint-staged": {
+		"*.{ts,js}": "eslint --quiet --fix"
+	},
+	"dependencies": {
+		"@aws-sdk/client-dynamodb": "^3.478.0",
+		"@aws-sdk/client-lambda": "^3.478.0",
+		"traverse": "^0.6.8"
+	}
+}
