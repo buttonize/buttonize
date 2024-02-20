@@ -16,7 +16,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:buttonize/buttonize.git"
+		"url": "git+ssh://git@github.com/buttonize/buttonize.git"
 	},
 	"bugs": {
 		"url": "https://github.com/buttonize/buttonize/issues"
