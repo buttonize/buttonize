@@ -3,8 +3,8 @@ import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam'
 import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { describe, expect, it } from 'vitest'
 
-import { Action, B } from '../../../src'
-import { translateActionIntentOrExpressionIntoPropsAndIam } from '../../../src/utils/action-intent'
+import { Action, B } from '@/cdk/index.js'
+import { translateActionIntentOrExpressionIntoPropsAndIam } from '@/cdk/utils/action-intent/index.js'
 
 describe('Utils -> Action Intent -> Translate', () => {
 	it('should translate action', () => {

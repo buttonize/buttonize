@@ -25,7 +25,7 @@ This package contains [AWS CDK](https://aws.amazon.com/cdk/) constructs through 
 #### TypeScript
 
 ```
-$ npm i -D @buttonize/cdk
+$ npm i -D buttonize
 ```
 
 #### Python, Java, Go, .NET

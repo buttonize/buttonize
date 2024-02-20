@@ -4,7 +4,7 @@
             "name": "master"
         },
         {
-            "name": "staging",
+            "name": "next",
             "channel": "next",
             "prerelease": "next"
         }
