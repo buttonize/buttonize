@@ -27,7 +27,7 @@
 		"build:watch": "tsc --project tsconfig.release.json --watch",
 		"test": "vitest",
 		"test:watch": "vitest --watch",
-		"lint": "eslint 'src' 'test' --quiet --ext .ts",
+		"lint": "eslint 'cdk' 'cli' 'test' --quiet --ext .ts,.tsx",
 		"lint:fix": "pnpm run lint --fix",
 		"typecheck": "tsc --noEmit"
 	},
