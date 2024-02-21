@@ -23,7 +23,7 @@
 	},
 	"scripts": {
 		"prepare": "husky install",
-		"build": "rm -rf dist && tsc --project tsconfig.release.json && tsup cli/api/_ws.ts -d dist/cli --tsconfig=tsconfig.release.json --dts-only &&  jq 'del(.scripts.prepare) | .bin.buttonize = \"./cli/index.js\"' package.json > dist/package.json && cp LICENSE dist",
+		"build": "rm -rf dist && tsc --project tsconfig.release.json && tsup cli/api/_ws.ts -d dist/cli --tsconfig=tsconfig.release.json --dts-only &&  jq 'del(.scripts.prepare) | .bin.buttonize = \"./cli/index.js\"' package.json > dist/package.json && cp LICENSE dist && cp README.md dist",
 		"build:watch": "tsc --project tsconfig.release.json --watch",
 		"test": "vitest",
 		"test:watch": "vitest --watch",
