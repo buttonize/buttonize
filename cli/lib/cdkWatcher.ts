@@ -1,6 +1,7 @@
+import { pathToFileURL } from 'node:url'
+
 import cpx2 from 'cpx2'
 import { EventEmitter } from 'events'
-import { pathToFileURL } from 'node:url'
 import * as path from 'path'
 import type * as ts from 'typescript'
 

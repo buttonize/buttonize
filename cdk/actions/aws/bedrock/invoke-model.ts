@@ -49,7 +49,7 @@ export const invokeModel = (
 			typeof input.body === 'string'
 				? {
 						inputText: input.body
-				  }
+					}
 				: input.body
 	} else if (
 		'anthropic.claude-v1' === input.modelId ||
@@ -101,7 +101,7 @@ export const invokeModel = (
 								}::foundation-model/${input.modelId}`
 							]
 						})
-				  ]
+					]
 				: []
 	})
 }

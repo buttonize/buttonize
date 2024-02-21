@@ -10,8 +10,8 @@ export type RuntimeIfExpressionWithResolvedActions<T> =
 	T extends RuntimeIfExpression<infer Result>
 		? RuntimeIfExpression<RuntimeIfExpressionWithResolvedActions<Result>>
 		: T extends ActionIntent
-		? T['actionIntentProps']
-		: T
+			? T['actionIntentProps']
+			: T
 
 export const resolveActionIntentsInRuntimeIfExpression = <
 	T extends RuntimeIfExpression<unknown>

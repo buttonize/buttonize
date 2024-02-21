@@ -49,5 +49,5 @@ export const extractExecutionRoleData = (
 		? {
 				roleArn: executionRole.roleArn,
 				externalId: getRoleExternalId(executionRole)
-		  }
+			}
 		: executionRole

@@ -34,6 +34,6 @@ export const invoke = (
 							actions: ['lambda:InvokeFunction'],
 							resources: [f.functionArn]
 						})
-				  ]
+					]
 				: []
 	})

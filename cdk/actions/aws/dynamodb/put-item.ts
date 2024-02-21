@@ -32,6 +32,6 @@ export const putItem = (
 							actions: ['dynamodb:PutItem'],
 							resources: [table.tableArn]
 						})
-				  ]
+					]
 				: []
 	})
