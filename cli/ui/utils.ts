@@ -1,4 +1,5 @@
 import { pathToFileURL } from 'node:url'
+
 import path from 'path'
 import type * as ts from 'typescript'
 

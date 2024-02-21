@@ -1,6 +1,6 @@
 declare module 'cpx2' {
-	import * as stream from 'stream'
 	import { EventEmitter } from 'events'
+	import * as stream from 'stream'
 
 	export interface SyncOptions {
 		/** remove files that copied on past before copy. */

@@ -1,6 +1,7 @@
+import { pathToFileURL } from 'node:url'
+
 import type { App as AppType, Stack as StackType } from 'aws-cdk-lib'
 import type { Template as TemplateType } from 'aws-cdk-lib/assertions'
-import { pathToFileURL } from 'node:url'
 import * as path from 'path'
 
 import { CdkForkedErrors, CdkForkedInput, CdkForkedStacks } from './types.js'

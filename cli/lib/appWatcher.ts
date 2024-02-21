@@ -157,17 +157,15 @@ export const tryToFetchDeployedStack = async (
 
 				switch (ResourceType) {
 					case 'AWS::Lambda::Function':
-						evaluatorOptions.RefResolvers[
-							LogicalResourceId
-						] = `${PhysicalResourceId}`
+						evaluatorOptions.RefResolvers[LogicalResourceId] =
+							`${PhysicalResourceId}`
 						evaluatorOptions['Fn::GetAttResolvers'][LogicalResourceId] = {
 							Arn: `arn:${account.partition}:lambda:${sdk.currentRegion}:${account.accountId}:function:${PhysicalResourceId}`
 						}
 						break
 					case 'AWS::IAM::Role':
-						evaluatorOptions.RefResolvers[
-							LogicalResourceId
-						] = `${PhysicalResourceId}`
+						evaluatorOptions.RefResolvers[LogicalResourceId] =
+							`${PhysicalResourceId}`
 						evaluatorOptions['Fn::GetAttResolvers'][LogicalResourceId] = {
 							Arn: `arn:${account.partition}:iam::${account.accountId}:role/${PhysicalResourceId}`
 						}

@@ -127,7 +127,7 @@ export class ButtonizeApp extends Construct {
 							[id: string]: ActionIntentProps
 						}
 						initialStateIamStatements: PolicyStatement[]
-				  }>(
+					}>(
 						(acc, [id, actionIntent]) => {
 							const { action, iamStatements } =
 								translateActionIntentIntoPropsAndIam(actionIntent)
@@ -147,7 +147,7 @@ export class ButtonizeApp extends Construct {
 							initialState: {},
 							initialStateIamStatements: []
 						}
-				  )
+					)
 				: { initialState: undefined, initialStateIamStatements: [] }
 
 		new PageCustomResource(this, `ButtonizePage${id}`, {
