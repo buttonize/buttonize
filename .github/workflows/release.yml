@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Commit Lint
+        run: pnpm commitlint --from 22fb740a74ae4e06a494a4096cc7bd8fdb629002 --to HEAD
+
       - name: Lint
         run: pnpm run lint
 

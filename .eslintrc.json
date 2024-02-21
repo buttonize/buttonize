@@ -4,11 +4,7 @@
 		"ecmaVersion": 2018,
 		"sourceType": "module"
 	},
-	"plugins": [
-		"@typescript-eslint",
-		"prettier",
-		"simple-import-sort"
-	],
+	"plugins": ["@typescript-eslint", "prettier", "simple-import-sort"],
 	"rules": {
 		"@typescript-eslint/ban-ts-comment": [
 			"error",
@@ -27,5 +23,20 @@
 		"prettier/prettier": "error",
 		"simple-import-sort/exports": "error",
 		"simple-import-sort/imports": "error"
-	}
+	},
+	"overrides": [
+		{
+			"files": ["cli/**"],
+			"extends": ["plugin:react/recommended"],
+			"rules": {
+				"react/prop-types": ["off"],
+				"react/react-in-jsx-scope": "off"
+			},
+			"settings": {
+				"react": {
+					"version": "detect"
+				}
+			}
+		}
+	]
 }

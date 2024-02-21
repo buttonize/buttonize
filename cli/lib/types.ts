@@ -1,3 +1,5 @@
+import { ISerializedComponent } from '@/cdk/utils/Component.js'
+
 export type Apps = {
 	[stackId: string]: {
 		[appId: string]: {
@@ -10,7 +12,7 @@ export type Apps = {
 			pages: {
 				pageIdName: string
 				isFirstPage: boolean
-				body: SerializedComponent[]
+				body: ISerializedComponent[]
 				initialState?: InitialState
 				title?: string
 				subtitle?: string
@@ -40,11 +42,6 @@ export type CdkForkedInput = {
 export type CdkForkedOutput = {
 	stacks: CdkForkedStacks
 	errors: CdkForkedErrors
-}
-
-export interface SerializedComponent {
-	props?: any
-	typeName: string
 }
 
 export interface InitialState {
