@@ -1,0 +1,7 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["cdk", "cli"],
+	"compilerOptions": {
+		"outDir": "./dist/esm"
+	}
+}

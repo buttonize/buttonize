@@ -1,8 +1,6 @@
 {
 	"name": "buttonize",
 	"version": "0.0.1",
-	"module": "cdk/index.js",
-	"types": "cdk/index.d.ts",
 	"license": "MIT",
 	"type": "module",
 	"author": {
@@ -12,7 +10,7 @@
 	},
 	"homepage": "https://buttonize.io",
 	"bin": {
-		"buttonize": "./dist/cli/index.js"
+		"buttonize": "./esm/cli/index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -23,8 +21,7 @@
 	},
 	"scripts": {
 		"prepare": "husky install",
-		"build": "rm -rf dist && tsc --project tsconfig.release.json && tsup cli/api/_ws.ts -d dist/cli --tsconfig=tsconfig.release.json --dts-only &&  jq 'del(.scripts.prepare) | .bin.buttonize = \"./cli/index.js\"' package.json > dist/package.json && cp LICENSE dist && cp README.md dist",
-		"build:watch": "tsc --project tsconfig.release.json --watch",
+		"build": "./scripts/build.sh",
 		"test": "vitest",
 		"test:watch": "vitest --watch",
 		"lint": "eslint 'cdk' 'cli' 'test' --quiet --ext .ts,.tsx,.mjs,.cjs",
@@ -47,6 +44,21 @@
 	},
 	"lint-staged": {
 		"*.{ts,tsx,js,jsx,mjs,cjs}": "eslint --quiet --fix"
+	},
+	"exports": {
+		"./cdk": {
+			"types": "./types/cdk/index.d.ts",
+			"require": "./cjs/cdk/index.js",
+			"import": "./esm/cdk/index.js",
+			"default": "./esm/cdk/index.js"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"cdk": [
+				"./types/cdk/index.d.ts"
+			]
+		}
 	},
 	"devDependencies": {
 		"@aws-sdk/client-sns": "^3.414.0",

@@ -1,0 +1,9 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["cdk"],
+	"compilerOptions": {
+		"module": "CommonJS",
+		"moduleResolution": "Node10",
+		"outDir": "./dist/cjs/cdk"
+	}
+}

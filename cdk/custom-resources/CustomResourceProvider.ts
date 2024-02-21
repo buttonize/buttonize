@@ -13,9 +13,7 @@ import { Construct } from 'constructs'
 import * as path from 'path'
 
 import { iacTopicArn } from './handler/const.js'
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const packageJson = require('../../package.json')
+import { version } from './version.js'
 
 export class CustomResourceProvider extends Construct {
 	/**
@@ -89,8 +87,8 @@ export class CustomResourceProvider extends Construct {
 			timeout: Duration.minutes(2),
 			memorySize: 512,
 			environment: {
-				PACKAGE_NAME: packageJson.name,
-				PACKAGE_VERSION: packageJson.version
+				PACKAGE_NAME: 'npm@buttonize',
+				PACKAGE_VERSION: version
 			}
 		})
 

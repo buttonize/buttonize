@@ -1,0 +1,9 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["cdk", "cli"],
+	"compilerOptions": {
+		"outDir": "./dist/types",
+		"declaration": true,
+		"emitDeclarationOnly": true
+	}
+}
