@@ -9,95 +9,111 @@
 
 <p align="center">
   <a href="https://discord.gg/2quY4Vz5BM"><img alt="Discord" src="https://img.shields.io/discord/1038752242238496779?style=flat-square" /></a>
-  <a href="https://www.npmjs.com/package/@buttonize/cdk"><img alt="npm" src="https://img.shields.io/npm/v/@buttonize/cdk?style=flat-square" /></a>
-  <a href="https://github.com/buttonize/buttonize-cdk/actions/workflows/release.yml?query=branch%3Amaster"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/buttonize/buttonize-cdk/release.yml?branch=master&style=flat-square" /></a>
+  <a href="https://www.npmjs.com/package/buttonize"><img alt="npm" src="https://img.shields.io/npm/v/buttonize?style=flat-square" /></a>
+  <a href="https://github.com/buttonize/buttonize/actions/workflows/release.yml?query=branch%3Amaster"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/buttonize/buttonize/release.yml?branch=master&style=flat-square&logo=github" /></a>
 </p>
 
-[Buttonize](https://buttonize.io) is a low-code paltform which enables cloud developers to create UI widgets like buttons, inputs, forms etc. connected to the cloud services like [AWS Lambda](https://aws.amazon.com/lambda/), [AWS Step Functions](https://aws.amazon.com/step-functions/), [AmazonDynamoDB](https://aws.amazon.com/dynamodb/) and more.
+Buttonize enables you to build internals tools with [AWS CDK](https://aws.amazon.com/cdk/).
 
-This package contains [AWS CDK](https://aws.amazon.com/cdk/) constructs through which you can manage Buttonize widgets via Infrastructure as Code.
+Hook-up UI components directly to AWS Lambda functions. Just install Buttonize and deploy your CDK. That's it.
 
 ## Getting started
 
 ### Installation
 
+ 
+1. Sign-up at [buttonize.io](app.buttonize.io/register)
+2. `$ npm i -D buttonize`
+3. Create your first Buttonize App :tada:
 
-#### TypeScript
 
-```
-$ npm i -D buttonize
-```
-
-#### Python, Java, Go, .NET
-
-*Coming soon...*
 
 ## Example
 
-You can find more examples in the [`examples`](./examples) folder.
+```ts
+// MyStack.ts
 
-```typescript
 import * as path from 'path'
-import * as btnz from '@buttonize/cdk'
-import * as cdk from 'aws-cdk-lib'
-import * as lambda from 'aws-cdk-lib/aws-lambda'
+import { Stack, StackProps } from 'aws-cdk-lib'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
+import { Action, Buttonize, ButtonizeApp, Display, Input } from '@buttonize/cdk'
 import { Construct } from 'constructs'
 
-export class SimpleFormStack extends cdk.Stack {
+export class MyStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
-    btnz.GlobalConfig.init(this, {
-      apiKey: process.env.BUTTONIZE_API_KEY, // Ideally use SSM or Secrets Manager
-      executionRoleExternalId: 'secret-external-id' // Ideally use SSM or Secrets Manager
+    Buttonize.init(this, {
+      apiKey: 'btnz_mybuttonizekey1234567',
+      externalId: 'this-is-super-secret-99'
     })
 
-    const simpleFormActionLambda = new NodejsFunction(
-      this,
-      'SimpleFormActionLambda',
-      {
-        handler: 'handler',
-        entry: path.join(__dirname, `/src/index.ts`),
-        runtime: lambda.Runtime.NODEJS_18_X
-      }
-    )
-
-    const form = new btnz.Form({
-      name: '[Example: simple-form] Invoke the lambda function',
-      label: 'Open form',
-      tags: ['simple', 'button', 'example']
+    const discountGenerator = new NodejsFunction(this, 'DiscountGenerator', {
+      entry: path.join(__dirname, 'discountGenerator.ts')
     })
 
-    form
-      .addTextField('email', {
-        label: 'Email of the user',
-        placeholder: 'user@example.com',
-        regex: '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
+    new ButtonizeApp(this, 'DemoApp', {
+      name: 'Discount code generator',
+      description:
+        'Select the discount amount and you will get the discount code on the next page.'
+    })
+      .page('InputPage', {
+        body: [
+          Display.heading('Generate discount code for customer'),
+          Input.select({
+            id: 'discount',
+            label: 'Discount value',
+            options: [
+              { label: '30%', value: 30 },
+              { label: '60%', value: 60 }
+            ]
+          }),
+          Display.button({
+            label: 'Generate discount',
+            onClick: Action.aws.lambda.invoke(
+              discountGenerator,
+              { Payload: { discountValue: '{{discount}}' } },
+              { id: 'discountGenerator' }
+            ),
+            onClickFinished: Action.buttonize.app.changePage('DonePage')
+          })
+        ]
       })
-      .addToggleField('isAdmin', {
-        label: 'Is admin'
+      .page('DonePage', {
+        body: [
+          Display.heading('Discount generated'),
+          Display.text('Discount code: {{InputPage.discountGenerator.code}}')
+        ]
       })
-
-    simpleFormActionLambda.addEventSource(form)
   }
 }
 ```
 
-## Video Tutorial
+```ts
+// discountGenerator.ts
+
+export const handler = async (event: { discountValue: number }) => {
+  console.log(`Generating discount of value ${event.discountValue}`)
+
+  return {
+    discountValue: event.discountValue,
+    code: `${Math.random()}`.split('.')[1]
+  }
+}
+```
+
+### Result
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=38cHso4csgY&t=720s"><img width="720" alt="Video Tutorial" src="https://user-images.githubusercontent.com/6282843/227496761-739d6ad0-8b81-426c-8257-90f3ebab4bcb.png"></a>
+  <img width="700" src="https://github.com/buttonize/buttonize/assets/6282843/0b6f714a-db76-4f24-9ef3-ad704029e836" />
 </p>
-
-## Construct API Docs
-
-Read more [here](API.md).
-
-## Buttonize Docs
-
-Learn more at [docs.buttnoize.io](https://docs.buttonize.io/infrastructure-as-code/aws-cdk/quick-start)
 
 ---
 
-**Join our community** [Discord](https://discord.gg/2quY4Vz5BM) | [Twitter](https://twitter.com/SST_dev)
+## Buttonize Docs
+
+Learn more at [docs.buttonize.io](https://docs.buttonize.io)
+
+---
+
+**Join our community** [Discord](https://discord.gg/2quY4Vz5BM) | [Twitter](https://twitter.com/Buttonizeio)

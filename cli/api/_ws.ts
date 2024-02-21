@@ -3,7 +3,9 @@ import { observable } from '@trpc/server/observable'
 import { AppWatcherEvent } from '../lib/appWatcher.js'
 import { CdkWatcherEvent } from '../lib/cdkWatcher.js'
 import { publicProcedure, router } from './trpc.js'
-export type { Apps, SerializedComponent } from '../lib/types.js'
+
+export type { Apps } from '../lib/types.js'
+export type { ISerializedComponent } from '@/cdk/utils/Component.js'
 
 export const wsRouter = router({
 	rebuild: publicProcedure.mutation(({ ctx }) => {
