@@ -47,6 +47,12 @@ jobs:
       - name: Test
         run: pnpm run test
 
+      - name: Includ new version number in version.ts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: ./scripts/generate-version-ts.sh
+
       - name: Build
         run: pnpm run build
 

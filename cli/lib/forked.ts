@@ -20,7 +20,10 @@ const sendResponse = ({
 	}
 }
 
-export const forked = async ({ tmpDir }: CdkForkedInput): Promise<void> => {
+export const forked = async ({
+	tmpDir,
+	entrypoint
+}: CdkForkedInput): Promise<void> => {
 	const stacks: CdkForkedStacks = {}
 	const errors: string[] = []
 
@@ -43,9 +46,27 @@ export const forked = async ({ tmpDir }: CdkForkedInput): Promise<void> => {
 			).href
 		)
 
-		const binFile = await import(
-			pathToFileURL(path.join(tmpDir, 'bin', 'cdk.js')).href
-		)
+		let binFile
+		try {
+			binFile = await import(
+				pathToFileURL(path.join(tmpDir, entrypoint.replace(/\.[^/.]+$/, '.js')))
+					.href
+			)
+		} catch (err) {
+			if (
+				typeof err === 'object' &&
+				err !== null &&
+				'code' in err &&
+				err.code === 'ERR_MODULE_NOT_FOUND'
+			) {
+				errors.push(
+					`Provided entrypoint argument "${entrypoint}" doesn't contain valid JS/TS file with CDK App.`,
+					`Please make sure the path in entrypoint argument is correct.\n\n`
+				)
+			}
+
+			throw err
+		}
 
 		for (const [, variableValue] of Object.entries(binFile)) {
 			if (variableValue instanceof App) {
@@ -78,6 +99,13 @@ export const forked = async ({ tmpDir }: CdkForkedInput): Promise<void> => {
 		}
 	} catch (err) {
 		errors.push(`${err}`)
+	}
+
+	if (Object.keys(stacks).length === 0 && errors.length === 0) {
+		errors.push(
+			`No CDK stacks found in "${entrypoint}". Please make sure you export the \`app\` variable.`,
+			'For example:\n\n\t\texport const app = new cdk.App()\n\n'
+		)
 	}
 
 	sendResponse({
