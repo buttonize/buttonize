@@ -40,7 +40,13 @@ $ pnpm buttonize dev --profile=YOUR_AWS_PROFILE
 ```
 
 ### Install to existing CDK project
- 
+
+#### Modify CDK `bin` code to export the App
+
+```ts
+export const app = new cdk.App()
+```
+
 #### `npm`
 
 ```
@@ -59,26 +65,53 @@ $ pnpm buttonize dev --profile=YOUR_AWS_PROFILE
 
 ## Example
 
-```ts
-// MyStack.ts
+```
+.
+├── bin
+│   └── cdk.ts
+├── lib
+│   └── example-stack.ts
+├── src
+│   └── discountGenerator.ts
+├── cdk.json
+└── package.json
+```
 
-import * as path from 'path'
-import { Stack, StackProps } from 'aws-cdk-lib'
+```ts
+// bin/cdk.ts
+
+#!/usr/bin/env node
+import 'source-map-support/register'
+
+import * as cdk from 'aws-cdk-lib'
+
+import { ExampleStack } from '../lib/example-stack'
+
+export const app = new cdk.App()
+new ExampleStack(app, 'ExampleStack')
+
+```
+
+```ts
+// lib/example-stack.ts
+
+import * as cdk from 'aws-cdk-lib'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import { Action, Buttonize, ButtonizeApp, Display, Input } from 'buttonize/cdk'
 import { Construct } from 'constructs'
+import * as path from 'path'
 
-export class MyStack extends cdk.Stack {
+export class ExampleStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
     Buttonize.init(this, {
       apiKey: 'btnz_mybuttonizekey1234567',
-      externalId: 'this-is-super-secret-99'
+      externalId: 'CHANGE-ME-some-random-external-id'
     })
 
     const discountGenerator = new NodejsFunction(this, 'DiscountGenerator', {
-      entry: path.join(__dirname, 'discountGenerator.ts')
+      entry: path.join(__dirname, '../', 'src', 'discountGenerator.ts')
     })
 
     new ButtonizeApp(this, 'DemoApp', {
@@ -119,7 +152,7 @@ export class MyStack extends cdk.Stack {
 ```
 
 ```ts
-// discountGenerator.ts
+// src/discountGenerator.ts
 
 export const handler = async (event: { discountValue: number }) => {
   console.log(`Generating discount of value ${event.discountValue}`)
