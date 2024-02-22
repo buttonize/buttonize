@@ -31,9 +31,11 @@ export type CdkWatcherEvent =
 export type CdkWatcherEmitter = Emitter<{ event: CdkWatcherEvent }>
 
 export const createCdkWatcher = async ({
-	tmpDir
+	tmpDir,
+	entrypoint
 }: {
 	tmpDir: string
+	entrypoint: string
 }): Promise<{ cdkEmitter: CdkWatcherEmitter; close: () => void }> => {
 	const importedTs = (
 		await import(
@@ -122,7 +124,7 @@ export const createCdkWatcher = async ({
 			setTimeout(async () => {
 				cdkEmitter.emit('event', { name: 'recompiled' })
 
-				const { stacks, errors } = await buildCdkTree(tmpDir)
+				const { stacks, errors } = await buildCdkTree(tmpDir, entrypoint)
 
 				cdkEmitter.emit('event', { name: 'done', stacks, errors })
 			}, 100)

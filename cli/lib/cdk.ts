@@ -4,7 +4,10 @@ import * as path from 'path'
 import { CdkForkedInput, CdkForkedOutput } from './types.js'
 import { isVerbose } from './utils.js'
 
-export const buildCdkTree = (tmpDir: string): Promise<CdkForkedOutput> =>
+export const buildCdkTree = (
+	tmpDir: string,
+	entrypoint: string
+): Promise<CdkForkedOutput> =>
 	new Promise<CdkForkedOutput>((resolve, reject) => {
 		const filePath =
 			process.platform === 'win32'
@@ -38,7 +41,8 @@ export const buildCdkTree = (tmpDir: string): Promise<CdkForkedOutput> =>
 		})
 
 		const message: CdkForkedInput = {
-			tmpDir
+			tmpDir,
+			entrypoint
 		}
 
 		forked.send(JSON.stringify(message))

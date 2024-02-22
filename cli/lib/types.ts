@@ -37,6 +37,7 @@ export type CdkForkedErrors = string[]
 
 export type CdkForkedInput = {
 	tmpDir: string
+	entrypoint: string
 }
 
 export type CdkForkedOutput = {

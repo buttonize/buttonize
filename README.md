@@ -28,7 +28,7 @@ Sign-up at [buttonize.io](app.buttonize.io/register)
 ```
 $ npx create-buttonize
 $ cd my-buttonize-app && npm install
-$ npx buttonize dev --profile=YOUR_AWS_PROFILE
+$ npx buttonize dev bin/cdk.ts
 ```
 
 #### `pnpm`
@@ -36,7 +36,7 @@ $ npx buttonize dev --profile=YOUR_AWS_PROFILE
 ```
 $ pnpm create buttonize
 $ cd my-buttonize-app && pnpm install
-$ pnpm buttonize dev --profile=YOUR_AWS_PROFILE
+$ pnpm buttonize dev bin/cdk.ts
 ```
 
 ### Install to existing CDK project
@@ -51,14 +51,14 @@ export const app = new cdk.App()
 
 ```
 $ npm install -D buttonize
-$ npx buttonize dev --profile=YOUR_AWS_PROFILE
+$ npx buttonize dev bin/cdk.ts
 ```
 
 #### `pnpm`
 
 ```
 $ pnpm add -D buttonize
-$ pnpm buttonize dev --profile=YOUR_AWS_PROFILE
+$ pnpm buttonize dev bin/cdk.ts
 ```
 
 ## Example
@@ -173,7 +173,45 @@ export const handler = async (event: { discountValue: number }) => {
 
 ---
 
-## Buttonize Docs
+## CLI
+
+### Options
+
+#### `--profile`
+
+AWS profile name to used for fetching stack metadata. You can also set `AWS_PROFILE` environment variable instead.
+
+```
+$ npx buttonize dev --profile=YOUR_AWS_PROFILE bin/cdk.ts
+```
+
+#### `--region`
+
+AWS region used for fetching stack metadata. You can also set `AWS_REGION` environment variable instead.
+
+```
+$ npx buttonize dev --region=eu-central-1 bin/cdk.ts
+```
+
+#### `--help`
+
+Prints out CLI help information.
+
+```
+$ npx buttonize --help
+```
+
+### Arguments
+
+#### `<entrypoint>`
+
+Path to JS/TS file where the CDK app is defined.
+
+```
+$ npx buttonize dev bin/cdk.ts
+```
+
+## Docs
 
 Learn more at [docs.buttonize.io](https://docs.buttonize.io)
 

@@ -2,14 +2,16 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
 export const program = yargs(hideBin(process.argv))
-	.scriptName('btnz')
+	.scriptName('buttonize')
 	.option('profile', {
 		type: 'string',
-		describe: 'AWS profile name to use'
+		describe:
+			'AWS profile name to used for fetching stack metadata. You can also set `AWS_PROFILE` environment variable instead.'
 	})
 	.option('region', {
 		type: 'string',
-		describe: 'AWS region to use'
+		describe:
+			'AWS region used for fetching stack metadata. You can also set `AWS_REGION` environment variable instead.'
 	})
 	.option('verbose', {
 		type: 'boolean',
