@@ -12,7 +12,7 @@ tsc --project tsconfig.release-types.json && \
 tsup cli/api/_ws.ts -d dist/types --tsconfig=tsconfig.release-types.json --dts-only && \
 # Remove husky in prepare script from package.json and copy it to dist
 # because contents of dist contain all files that will be published to NPM
-jq 'del(.scripts.prepare)' package.json > dist/package.json && \
+sh ./scripts/package-json-dist.sh && \
 # This hack allows cjs/esm to co-exist in parallel
 echo '{"type": "commonjs"}' > dist/cjs/package.json && \
 echo '{"type": "module"}' > dist/esm/package.json && \

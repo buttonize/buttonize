@@ -51,14 +51,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          pnpm semantic-release --dry-run | \
-          awk '/The next release version is ([0-9]+\.[0-9]+\.[0-9]+)/{ print $0 }' | \
-          awk '{split($0, array, "version is "); printf "export const version = \"%s\"\n",array[2]}' > cdk/custom-resources/version.ts
-
-          if [[ $(cat cdk/custom-resources/version.ts | wc -c) -eq 0 ]]; then
-            git checkout HEAD -- cdk/custom-resources/version.ts
-          fi
+        run: ./scripts/generate-version-ts.sh
 
       - name: Build
         run: pnpm run build
