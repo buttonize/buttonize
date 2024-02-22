@@ -61,8 +61,6 @@ $ pnpm add -D buttonize
 $ pnpm buttonize dev --profile=YOUR_AWS_PROFILE
 ```
 
-
-
 ## Example
 
 ```
