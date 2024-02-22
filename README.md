@@ -15,16 +15,45 @@
 
 Buttonize enables you to build internals tools with [AWS CDK](https://aws.amazon.com/cdk/).
 
-Hook-up UI components directly to AWS Lambda functions. Just install Buttonize and deploy your CDK. That's it.
+Hook-up UI components directly to AWS Lambda functions. Just install Buttonize and deploy your CDK. **That's it.**
 
 ## Getting started
 
-### Installation
+Sign-up at [buttonize.io](app.buttonize.io/register)
 
+### Setup fresh new CDK project
+
+#### `npm`
+
+```
+$ npx create-buttonize
+$ cd my-buttonize-app && npm install
+$ npx buttonize dev --profile=YOUR_AWS_PROFILE
+```
+
+#### `pnpm`
+
+```
+$ pnpm create buttonize
+$ cd my-buttonize-app && pnpm install
+$ pnpm buttonize dev --profile=YOUR_AWS_PROFILE
+```
+
+### Install to existing CDK project
  
-1. Sign-up at [buttonize.io](app.buttonize.io/register)
-2. `$ npm i -D buttonize`
-3. Create your first Buttonize App :tada:
+#### `npm`
+
+```
+$ npm install -D buttonize
+$ npx buttonize dev --profile=YOUR_AWS_PROFILE
+```
+
+#### `pnpm`
+
+```
+$ pnpm add -D buttonize
+$ pnpm buttonize dev --profile=YOUR_AWS_PROFILE
+```
 
 
 
@@ -36,7 +65,7 @@ Hook-up UI components directly to AWS Lambda functions. Just install Buttonize a
 import * as path from 'path'
 import { Stack, StackProps } from 'aws-cdk-lib'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
-import { Action, Buttonize, ButtonizeApp, Display, Input } from '@buttonize/cdk'
+import { Action, Buttonize, ButtonizeApp, Display, Input } from 'buttonize/cdk'
 import { Construct } from 'constructs'
 
 export class MyStack extends cdk.Stack {
@@ -104,8 +133,11 @@ export const handler = async (event: { discountValue: number }) => {
 
 ### Result
 
+
 <p align="center">
-  <img width="700" src="https://github.com/buttonize/buttonize/assets/6282843/0b6f714a-db76-4f24-9ef3-ad704029e836" />
+  <kbd>
+    <img width="700" src="https://github.com/buttonize/buttonize/assets/6282843/0b6f714a-db76-4f24-9ef3-ad704029e836" />
+  </kbd>
 </p>
 
 ---
