@@ -19,7 +19,7 @@ Hook-up UI components directly to AWS Lambda functions. Just install Buttonize a
 
 ## Getting started
 
-Sign-up at [buttonize.io](app.buttonize.io/register)
+Sign-up at [app.buttonize.io](https://app.buttonize.io/register)
 
 ### Setup fresh new CDK project
 
