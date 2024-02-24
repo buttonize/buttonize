@@ -12,7 +12,7 @@ import { LogRetention, RetentionDays } from 'aws-cdk-lib/aws-logs'
 import { Construct } from 'constructs'
 import * as path from 'path'
 
-import { iacTopicArn } from './handler/const.js'
+import { iacTopicArn } from './handler/iac-topic-arn.js'
 import { version } from './version.js'
 
 export class CustomResourceProvider extends Construct {
