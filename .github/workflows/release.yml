@@ -53,6 +53,10 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: ./scripts/generate-version-ts.sh
 
+      - name: Replace prod values
+        if: github.ref == 'refs/heads/master'
+        run: ./scripts/replace-prod-values.sh
+
       - name: Build
         run: pnpm run build
 

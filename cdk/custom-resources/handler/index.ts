@@ -2,7 +2,9 @@ import { PublishCommand, SNSClient } from '@aws-sdk/client-sns'
 import type { CloudFormationCustomResourceHandler } from 'aws-lambda'
 
 import { cfnRespond, CR_ERROR_PHYSICAL_ID } from './cfn.js'
-import { iacTopicArn, topicRegion } from './const.js'
+import { iacTopicArn } from './iac-topic-arn.js'
+
+export const topicRegion = iacTopicArn.split(':')[3]
 
 const sns = new SNSClient({ region: topicRegion })
 
