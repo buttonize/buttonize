@@ -28,7 +28,7 @@ export const button = (
 			: { action: undefined, iamStatements: [] }
 
 	return new Component({
-		typeName: 'display.button',
+		typeName: 'input.button',
 		props: {
 			...props,
 			onClick: onClick.action,
