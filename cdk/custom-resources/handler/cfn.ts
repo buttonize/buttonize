@@ -15,6 +15,8 @@ export const cfnRespond = async (
 		status: CloudFormationCustomResourceResponse['Status']
 		reason?: string
 		physicalResourceId: string
+		data?: Record<string, string>
+		noEcho?: boolean
 	},
 	logName: string
 ): Promise<void> => {
@@ -29,7 +31,9 @@ export const cfnRespond = async (
 		RequestId: event.RequestId,
 		StackId: event.StackId,
 		LogicalResourceId: event.LogicalResourceId,
-		PhysicalResourceId: response.physicalResourceId
+		PhysicalResourceId: response.physicalResourceId,
+		Data: response.data,
+		NoEcho: response.noEcho
 	}
 
 	const requestBody = JSON.stringify(request)
