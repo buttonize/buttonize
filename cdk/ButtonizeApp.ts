@@ -3,6 +3,7 @@ import { Effect, Policy, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam'
 import { Construct } from 'constructs'
 
 import { AppCustomResource } from './custom-resources/AppCustomResource.js'
+import { ExternalIdCustomResource } from './custom-resources/ExternalIdCustomResource.js'
 import { PageCustomResource } from './custom-resources/PageCustomResource.js'
 import { ExecutionRole } from './types.js'
 import {
@@ -63,15 +64,6 @@ export class ButtonizeApp extends Construct {
 			)
 		}
 
-		if (
-			typeof contextExternalId === 'undefined' &&
-			typeof props.executionRole === 'undefined'
-		) {
-			throw new Error(
-				`Buttonize IAM Role External ID has not been defined. Please make sure to call Buttonize.init(...) in the beginning of your Stack definition or supply it as "executionRole" property during creation of "${id}" Buttonize App.`
-			)
-		}
-
 		const stage = props.stage ?? contextStage ?? 'production'
 		if (stage.length === 0) {
 			throw new Error('Buttonize Stage value must have at least one character.')
@@ -85,7 +77,11 @@ export class ButtonizeApp extends Construct {
 			new Role(this, 'ExecutionRole', {
 				description: `Execution role for "${this.name}" Buttonize App`,
 				assumedBy: ButtonizeAccountPrincipal,
-				externalIds: [contextExternalId as string]
+				externalIds: [
+					contextExternalId ??
+						new ExternalIdCustomResource(this, 'ExternalIdGenerator')
+							.secretValue
+				]
 			})
 
 		if (this.executionRole instanceof Role) {

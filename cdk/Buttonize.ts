@@ -36,10 +36,12 @@ export class Buttonize {
 			externalId,
 			stage,
 			tags
-		}: { apiKey: string; externalId: string; stage?: string; tags?: string[] }
+		}: { apiKey: string; externalId?: string; stage?: string; tags?: string[] }
 	): void {
 		Buttonize.setApiKey(scope, apiKey)
-		Buttonize.setExternalId(scope, externalId)
+		if (typeof externalId !== 'undefined') {
+			Buttonize.setExternalId(scope, externalId)
+		}
 		if (typeof stage !== 'undefined') {
 			Buttonize.setStage(scope, stage)
 		}
