@@ -31,6 +31,7 @@ export const handler: CloudFormationCustomResourceHandler = async (event) => {
 			},
 			'Custom Resource Error Cleanup'
 		)
+		return
 	}
 
 	// Dispatch event
