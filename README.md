@@ -104,8 +104,7 @@ export class ExampleStack extends cdk.Stack {
     super(scope, id, props)
 
     Buttonize.init(this, {
-      apiKey: 'btnz_mybuttonizekey1234567',
-      externalId: 'CHANGE-ME-some-random-external-id'
+      apiKey: 'btnz_mybuttonizekey1234567'
     })
 
     const discountGenerator = new NodejsFunction(this, 'DiscountGenerator', {
