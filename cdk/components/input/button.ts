@@ -10,8 +10,11 @@ export const button = (
 	props: {
 		label: TypeOrRuntimeIfExpression<string>
 		onClick: TypeOrRuntimeIfExpression<ActionIntent>
-		variant?: TypeOrRuntimeIfExpression<
+		kind?: TypeOrRuntimeIfExpression<
 			'primary' | 'secondary' | 'tertiary' | VariableReferenceString
+		>
+		intent?: TypeOrRuntimeIfExpression<
+			'default' | 'positive' | 'negative' | VariableReferenceString
 		>
 		disabled?: TypeOrRuntimeIfExpression<boolean | VariableReferenceString>
 		onClickFinished?: TypeOrRuntimeIfExpression<ActionIntent>
