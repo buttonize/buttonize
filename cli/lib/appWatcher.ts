@@ -1,7 +1,8 @@
 import { paginate } from '@baselime/paginate-aws'
 import type { Account } from 'aws-cdk/lib/index.js'
-import type { CloudFormation } from 'aws-sdk'
+import type { CloudFormation, IAM } from 'aws-sdk'
 import NodeEvaluator, { NodeEvaluatorOptions } from 'cfn-resolver-lib'
+import { deepKeys, getProperty } from 'dot-prop'
 import { EventEmitter } from 'events'
 
 import { Logger } from '../logger.js'
@@ -169,6 +170,7 @@ export const tryToFetchDeployedStack = async (
 						evaluatorOptions['Fn::GetAttResolvers'][LogicalResourceId] = {
 							Arn: `arn:${account.partition}:iam::${account.accountId}:role/${PhysicalResourceId}`
 						}
+						break
 				}
 			}
 		}
@@ -192,6 +194,59 @@ export const tryToFetchDeployedStack = async (
 			evaluatorOptions: null,
 			region: null
 		}
+	}
+}
+
+export const tryToFetchExternalId = async (
+	stack: CdkForkedStack,
+	rawExecutionRoleArn: string
+): Promise<string> => {
+	const { sdk } = await getSdk(stack)
+
+	const iam = sdk.iam() as IAM
+
+	try {
+		const iamResponse = await iam
+			.getRole({
+				RoleName: rawExecutionRoleArn.split(':role/')[1]
+			})
+			.promise()
+
+		const trustPolicy =
+			typeof iamResponse.Role.AssumeRolePolicyDocument === 'string'
+				? JSON.parse(
+						decodeURIComponent(iamResponse.Role.AssumeRolePolicyDocument)
+					)
+				: {}
+
+		const externalIdPath = deepKeys(trustPolicy).find((path) =>
+			path.includes('.sts:ExternalId')
+		)
+
+		if (typeof externalIdPath === 'undefined') {
+			Logger.debug('External ID for role:', rawExecutionRoleArn, 'not found')
+			return ''
+		}
+
+		const externalId = getProperty(trustPolicy, externalIdPath)
+
+		if (typeof externalId === 'undefined') {
+			Logger.debug(
+				'External ID not found in the trust policy. Role:',
+				rawExecutionRoleArn
+			)
+			return ''
+		}
+
+		return externalId
+	} catch (err) {
+		Logger.debug(
+			'Encountered error when searching for Role External ID',
+			err,
+			'Role:',
+			rawExecutionRoleArn
+		)
+		return ''
 	}
 }
 
@@ -257,7 +312,12 @@ export const extractAppsFromStacks = async (
 			acc[stackId][rawAppId] = {
 				executionRoleArn: rawAppTemplate.Properties.ExecutionRoleArn,
 				executionRoleExternalId:
-					rawAppTemplate.Properties.ExecutionRoleExternalId,
+					typeof rawAppTemplate.Properties.ExecutionRoleExternalId === 'string'
+						? rawAppTemplate.Properties.ExecutionRoleExternalId
+						: await tryToFetchExternalId(
+								stackData,
+								rawAppTemplate.Properties.ExecutionRoleArn
+							),
 				name: rawAppTemplate.Properties.Name,
 				description: rawAppTemplate.Properties.Description,
 				stage: rawAppTemplate.Properties.Stage,

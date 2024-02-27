@@ -28,7 +28,7 @@ Sign-up at [app.buttonize.io](https://app.buttonize.io/register)
 ```
 $ npx create-buttonize
 $ cd my-buttonize-app && npm install
-$ npx buttonize dev bin/cdk.ts
+$ npx buttonize dev --profile=YOUR_AWS_PROFILE bin/cdk.ts
 ```
 
 #### `pnpm`
@@ -36,7 +36,7 @@ $ npx buttonize dev bin/cdk.ts
 ```
 $ pnpm create buttonize
 $ cd my-buttonize-app && pnpm install
-$ pnpm buttonize dev bin/cdk.ts
+$ pnpm buttonize dev --profile=YOUR_AWS_PROFILE bin/cdk.ts
 ```
 
 ### Install to existing CDK project
@@ -51,14 +51,14 @@ export const app = new cdk.App()
 
 ```
 $ npm install -D buttonize
-$ npx buttonize dev bin/cdk.ts
+$ npx buttonize dev --profile=YOUR_AWS_PROFILE bin/cdk.ts
 ```
 
 #### `pnpm`
 
 ```
 $ pnpm add -D buttonize
-$ pnpm buttonize dev bin/cdk.ts
+$ pnpm buttonize dev --profile=YOUR_AWS_PROFILE bin/cdk.ts
 ```
 
 ## Example

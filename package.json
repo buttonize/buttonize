@@ -20,7 +20,7 @@
 		"url": "https://github.com/buttonize/buttonize/issues"
 	},
 	"scripts": {
-		"prepare": "husky install",
+		"prepare": "husky",
 		"build": "./scripts/build.sh",
 		"test": "vitest",
 		"test:watch": "vitest --watch",
@@ -98,6 +98,7 @@
 		"constructs": ">= 10.0.5 < 11"
 	},
 	"dependencies": {
+		"dot-prop": "^8.0.2",
 		"@aws-sdk/client-dynamodb": "^3.518.0",
 		"@aws-sdk/client-lambda": "^3.518.0",
 		"@baselime/paginate-aws": "^1.0.6",
