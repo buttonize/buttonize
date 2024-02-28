@@ -1,6 +1,12 @@
 export type VariableReferenceString = `{{${string}}}`
 
-export type SpacingUnits = 'sm' | 'md' | 'lg' | 'xl' | VariableReferenceString
+export type SpacingUnits =
+	| 'none'
+	| 'sm'
+	| 'md'
+	| 'lg'
+	| 'xl'
+	| VariableReferenceString
 
 export type WidthUnits = 1 | 2 | 3 | 4 | VariableReferenceString
 
