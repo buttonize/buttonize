@@ -34,7 +34,7 @@ export const program = yargs(hideBin(process.argv))
 		}
 	})
 	.version(false)
-	.epilogue(`Join Buttonize community on Discord https://discord.gg/2quY4Vz5BM`)
+	.epilogue(`Join Buttonize community on Discord https://discord.buttonize.io`)
 	.recommendCommands()
 	.demandCommand()
 	.strict()

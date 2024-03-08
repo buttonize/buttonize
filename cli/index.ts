@@ -31,7 +31,7 @@ process.on('uncaughtException', (err) => {
 	console.log()
 	console.log(
 		`Need help with this error? Let us know in #help on the Buttonize Discord ${blue(
-			`https://discord.gg/2quY4Vz5BM`
+			`https://discord.buttonize.io`
 		)}`
 	)
 	process.exit(1)
