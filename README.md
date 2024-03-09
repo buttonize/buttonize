@@ -217,4 +217,3 @@ Learn more at [docs.buttonize.io](https://docs.buttonize.io)
 ---
 
 **Join our community** [Discord](https://discord.buttonize.io) | [Twitter](https://twitter.com/Buttonizeio)
-
