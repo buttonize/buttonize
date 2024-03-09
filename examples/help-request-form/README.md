@@ -13,4 +13,4 @@ lambda.
 ## Useful commands
 
 * `cdk deploy --profile=<your AWS profile>`  deploy this stack to your default AWS account/region
-* `npx buttonize dev ./bin/help-request-form.ts --profile=<your AWS profile>`  deploy this app for use within Buttonize's web interface
+* `npx buttonize dev ./bin/help-request-form.ts --profile=<your AWS profile>` start live local development with code hot reloading 
