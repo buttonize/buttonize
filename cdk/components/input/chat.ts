@@ -6,6 +6,12 @@ import { Component, IComponent } from '../../utils/Component.js'
 import { TypeOrRuntimeIfExpression } from '../../utils/runtime-if-expression.js'
 import { SizeProps, SpacingProps, VariableReferenceString } from '../types.js'
 
+/**
+ *
+ * Coming soon... :wink:
+ *
+ * @param props
+ */
 export const chat = (
 	props: {
 		id: string
