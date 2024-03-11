@@ -7,6 +7,35 @@ import { AwsActionProps } from '../../../types.js'
 import { AwsActionIntent } from '../../../utils/action-intent/index.js'
 import { extractExecutionRoleData } from '../../../utils/utils.js'
 
+/**
+ * Invoke a lambda function.
+ *
+ * `input.Payload` is of type object. Buttonize will stringify the payload to JSON before sending it to the Lambda API.
+ *
+ * @param f Lambda function
+ * @param input Lambda Invoke API call props
+ * @param props Buttonize Action props
+ * @example
+ *
+ * ```ts
+ * const saveToDbLambda = new NodejsFunction(this, 'SaveToDbLambda', {
+ *   entry: path.join(__dirname, `lambdaHandler.ts`)
+ * })
+ *
+ * Input.button({
+ *   label: 'Save to database',
+ *   onClick: Action.aws.lambda.invoke(
+ *     saveToDbLambda,
+ *     {
+ *       Payload: {
+ *         saveToDb: true,
+ *         userName: '{{name}}'
+ *       }
+ *     }
+ *   )
+ * })
+ * ```
+ */
 export const invoke = (
 	f: IFunction,
 	input: Omit<LambdaInvokeCommandInput, 'Payload' | 'FunctionName'> & {
