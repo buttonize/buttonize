@@ -28,7 +28,7 @@ export const section = (
 		label: TypeOrRuntimeIfExpression<string>
 
 		/**
-		 * An array of Buttonize components which will be shown inside the section. section.
+		 * An array of Buttonize components which will be shown inside the section.
 		 */
 		body: IComponent[]
 

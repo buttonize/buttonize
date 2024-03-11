@@ -3,7 +3,7 @@ import { TypeOrRuntimeIfExpression } from '../../utils/runtime-if-expression.js'
 import { SizeProps, SpacingProps, VariableReferenceString } from '../types.js'
 
 /**
- * Displays bold heading with large font size.
+ * Displays a bold heading with a large font size.
  *
  * Learn more in the docs: {@link https://docs.buttonize.io/components/display-heading/}
  *

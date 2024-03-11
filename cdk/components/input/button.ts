@@ -43,7 +43,7 @@ export const button = (
 		onClick: TypeOrRuntimeIfExpression<ActionIntent>
 
 		/**
-		 * A variant of the button.
+		 * The variant of the button.
 		 *
 		 * @default 'primary'
 		 */
@@ -52,7 +52,7 @@ export const button = (
 		>
 
 		/**
-		 * An intent of the button.
+		 * The intent of the button.
 		 *
 		 * @default 'default'
 		 */
@@ -70,7 +70,7 @@ export const button = (
 		/**
 		 * A callback that will be invoked when the `onClick` function is finished executing.
 		 *
-		 * This is also often used to redirect to the next page via `Action.buttonize.app.changePage(...)`.
+		 * This is often used to redirect to the next page via `Action.buttonize.app.changePage(...)`.
 		 */
 		onClickFinished?: TypeOrRuntimeIfExpression<ActionIntent>
 	} & SpacingProps &

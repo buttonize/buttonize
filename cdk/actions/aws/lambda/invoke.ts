@@ -10,7 +10,7 @@ import { extractExecutionRoleData } from '../../../utils/utils.js'
 /**
  * Invoke a lambda function.
  *
- * `input.Payload` is of type object. Buttonize will stringify the payload to JSON before sending it to AWS API.
+ * `input.Payload` is of type object. Buttonize will stringify the payload to JSON before sending it to the Lambda API.
  *
  * @param f Lambda function
  * @param input Lambda Invoke API call props

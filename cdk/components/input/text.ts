@@ -22,7 +22,7 @@ import { SizeProps, SpacingProps, VariableReferenceString } from '../types.js'
 export const text = (
 	props: {
 		/**
-		 * Key used for storing value of the text input in the Runtime State {@link https://docs.buttonize.io/core-concepts/runtime-state/}.
+		 * Key used for storing the value of the text input in the Runtime State {@link https://docs.buttonize.io/core-concepts/runtime-state/}.
 		 */
 		id: string
 

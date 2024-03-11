@@ -12,10 +12,10 @@ export interface ButtonizeInitProps {
 	/**
 	 * Default API Key that will be used for all the Buttonize apps in the CDK stack.
 	 *
-	 * Secret string. Must be valid API Key created on {@link https://app.buttonize.io}
+	 * Secret string. Must be a valid API Key created at {@link https://app.buttonize.io}
 	 *
-	 * *Please make sure use use **plain string**. Any references to Secrets Manager or Parameter Store won't work
-	 * due to CloudFormation limitation with Custom Resources.
+	 * *Please make sure to use a **plain string**. Any references to Secrets Manager or Parameter Store won't work
+	 * due to a CloudFormation limitation with Custom Resources.
 	 * Learn more here: {@link https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references.html}*
 	 */
 	apiKey: string
@@ -23,14 +23,14 @@ export interface ButtonizeInitProps {
 	/**
 	 * Default IAM External ID that will be used for all the Buttonize apps in the CDK stack.
 	 *
-	 * **By default Buttonize generates the External ID on it's own via special Custom Resource called "ExternalIdCustomResource".**
+	 * **By default Buttonize generates the External ID on its own via special Custom Resource called "ExternalIdCustomResource".**
 	 *
 	 * **Use this approach only if you really need to.**
 	 *
 	 * Learn more about IAM External ID here: {@link https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html}
 	 *
-	 * *Please make sure use use **plain string**. Any references to Secrets Manager or Parameter Store won't work
-	 * due to CloudFormation limitation with Custom Resources.
+	 * *Please make sure to use a **plain string**. Any references to Secrets Manager or Parameter Store won't work
+	 * due to a CloudFormation limitation with Custom Resources.
 	 * Learn more here: {@link https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references.html}*
 	 */
 	externalId?: string
@@ -51,7 +51,7 @@ export interface ButtonizeInitProps {
 /**
  * Configuration of the Buttonize context.
  *
- * Make sure to call `Buttonize.init` at the absolute begging of the CDK stack definition.
+ * Make sure to call `Buttonize.init` at the very beginning of the CDK stack definition.
  *
  * @example
  *
@@ -65,14 +65,14 @@ export abstract class Buttonize {
 	/**
 	 * Set default IAM External ID that will be used for all the Buttonize apps in the CDK stack.
 	 *
-	 * **By default Buttonize generates the External ID on it's own via special Custom Resource called "ExternalIdCustomResource".**
+	 * **By default Buttonize generates the External ID on its own via a special Custom Resource called "ExternalIdCustomResource".**
 	 *
 	 * **Use this approach only if you really need to.**
 	 *
 	 * Learn more about IAM External ID here: {@link https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html}
 	 *
-	 * *Please make sure use use **plain string**. Any references to Secrets Manager or Parameter Store won't work
-	 * due to CloudFormation limitation with Custom Resources.
+	 * *Please make sure to use a **plain string**. Any references to Secrets Manager or Parameter Store won't work
+	 * due to a CloudFormation limitation with Custom Resources.
 	 * Learn more here: {@link https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references.html}*
 	 *
 	 * @param scope
@@ -89,12 +89,12 @@ export abstract class Buttonize {
 	/**
 	 * Set default API Key that will be used for all the Buttonize apps in the CDK stack.
 	 *
-	 * *Please make sure use use **plain string**. Any references to Secrets Manager or Parameter Store won't work
-	 * due to CloudFormation limitation with Custom Resources.
+	 * *Please make sure use use a **plain string**. Any references to Secrets Manager or Parameter Store won't work
+	 * due to a CloudFormation limitation with Custom Resources.
 	 * Learn more here: {@link https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references.html}*
 	 *
 	 * @param scope
-	 * @param apiKey Secret string. Must be valid API Key created on {@link https://app.buttonize.io}
+	 * @param apiKey Secret string. Must be a valid API Key created at {@link https://app.buttonize.io}
 	 */
 	static setApiKey(scope: Construct, apiKey: string): void {
 		Stack.of(scope).node.setContext(ButtonizeApiKeyContextKey, apiKey)
@@ -123,9 +123,9 @@ export abstract class Buttonize {
 	}
 
 	/**
-	 * Initialize Buttonize in context of the CDK Stack.
+	 * Initialize Buttonize in the context of the CDK Stack.
 	 *
-	 * Make sure to call `Buttonize.init` at the absolute begging of the CDK stack definition.
+	 * Make sure to call `Buttonize.init` at the very beginning of the CDK stack definition.
 	 *
 	 * @param scope
 	 * @param props `Buttonize.init` props such as `apiKey`.

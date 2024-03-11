@@ -39,8 +39,8 @@ export abstract class B {
 	/**
 	 * `if` statement.
 	 *
-	 * *Please note: Conditions can currently be used only for component’s
-	 * and action’s property values. You can not use B.if directly in the
+	 * *Please note: Currently, conditions can only be used for a component’s
+	 * or action’s property values. You can not use B.if directly in the
 	 * body prop of a page or the grid component.*
 	 *
 	 * Learn more in the docs: {@link https://docs.buttonize.io/core-concepts/if-statements/}
@@ -183,7 +183,7 @@ export abstract class B {
 	}
 
 	/**
-	 * Greater than or equal `>=`
+	 * Greater than or equal to `>=`
 	 *
 	 * @param left Left operand.
 	 * @param right Right operand.
@@ -192,8 +192,8 @@ export abstract class B {
 	 * ```ts
 	 * B.if(
 	 *   B.gte('{{variable}}', '3'),
-	 *   'variable is greater or equal than 3',
-	 *   'variable is lower than 3'
+	 *   'variable is greater than or equal to 3',
+	 *   'variable is less than 3'
 	 * )
 	 * ```
 	 *
@@ -201,9 +201,9 @@ export abstract class B {
 	 *
 	 * ```ts
 	 * if (variable >= 3) {
-	 *   return 'variable is greater or equal than 3'
+	 *   return 'variable is greater than or equal to 3'
 	 * } else {
-	 *   return 'variable is lower than 3'
+	 *   return 'variable is less than 3'
 	 * }
 	 * ```
 	 */
@@ -214,7 +214,7 @@ export abstract class B {
 	}
 
 	/**
-	 * Lower than or equal `<=`
+	 * Less than or equal to `<=`
 	 *
 	 * @param left Left operand.
 	 * @param right Right operand.
@@ -223,7 +223,7 @@ export abstract class B {
 	 * ```ts
 	 * B.if(
 	 *   B.lte('{{variable}}', '3'),
-	 *   'variable is lower or equal than 3',
+	 *   'variable is less than or equal to 3',
 	 *   'variable is greater than 3'
 	 * )
 	 * ```
@@ -232,7 +232,7 @@ export abstract class B {
 	 *
 	 * ```ts
 	 * if (variable <= 3) {
-	 *   return 'variable is lower or equal than 3'
+	 *   return 'variable is less than or equal to 3'
 	 * } else {
 	 *   return 'variable is greater than 3'
 	 * }
@@ -253,7 +253,7 @@ export abstract class B {
 	 * ```ts
 	 * B.if(
 	 *   B.and(B.gt('{{variable}}', '3'), B.lt('{{variable}}', '5')),
-	 *   'variable is equal to 4', // In case we use just integers
+	 *   'variable is equal to 4', // In case we just use integers
 	 *   'variable is number not equal to 4'
 	 * )
 	 * ```
@@ -262,9 +262,9 @@ export abstract class B {
 	 *
 	 * ```ts
 	 * if (variable > 3 && variable < 5) {
-	 *   return 'variable is equal to 4' // In case we use just integers
+	 *   return 'variable is equal to 4' // In case we just use integers
 	 * } else {
-	 *   return 'variable is number not equal to 4'
+	 *   return 'variable is a number not equal to 4'
 	 * }
 	 * ```
 	 */
