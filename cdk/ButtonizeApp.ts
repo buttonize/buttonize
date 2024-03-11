@@ -52,7 +52,6 @@ export interface ButtonizeAppProps {
 
 	/**
 	 * Stage of the app. Stage can be used for filtering the list of apps.
-	 * People often use with AWS CDK ephemeral/feature deployments.
 	 * Using stages allows users to for example filter out only relevant
 	 * production/staging apps.
 	 *
