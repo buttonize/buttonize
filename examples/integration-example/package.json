@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "aws-cdk-lib": "2.127.0",
-    "buttonize": "^0.4.1-next.1",
+    "buttonize": "^1.1.1",
     "constructs": "^10.0.5",
     "source-map-support": "^0.5.21"
   }
