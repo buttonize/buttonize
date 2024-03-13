@@ -53,7 +53,7 @@ export class HelpRequestFormStack extends cdk.Stack {
 								Input.button({
 									label: 'Go Back',
 									onClick: Action.buttonize.app.changePage('HelpFormPage'),
-									variant: 'secondary'
+									kind: 'secondary'
 								})
 							]
 						},
@@ -78,7 +78,7 @@ export class HelpRequestFormStack extends cdk.Stack {
 									),
 									onClickFinished:
 										Action.buttonize.app.changePage('FinishPage'),
-									variant: 'primary'
+									kind: 'primary'
 								})
 							]
 						}
