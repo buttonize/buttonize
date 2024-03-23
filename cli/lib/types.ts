@@ -1,8 +1,9 @@
 import { ISerializedComponent } from '@/cdk/utils/Component.js'
 
 export type Apps = {
-	[stackId: string]: {
+	[stackLogicalId: string]: {
 		[appId: string]: {
+			isDeployed: boolean
 			executionRoleArn?: string
 			executionRoleExternalId?: string
 			name: string
@@ -30,7 +31,7 @@ export type CdkForkedStack = {
 }
 
 export type CdkForkedStacks = {
-	[key: string]: CdkForkedStack
+	[logicalId: string]: CdkForkedStack
 }
 
 export type CdkForkedErrors = string[]
