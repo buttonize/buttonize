@@ -118,7 +118,7 @@ export const tryToFetchDeployedStack = async (
 
 		for await (const stacks of paginate(
 			async (next) =>
-				stackId !== null
+				stackId === null
 					? cfn
 							.describeStacks({
 								StackName: stack.metadata.stackName,
