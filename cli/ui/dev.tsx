@@ -46,6 +46,8 @@ export const Dev: React.FC<DevProps> = ({
 
 	const [apiConnections, setApiConnections] = useState<number>(0)
 
+	const [needsDeploy, setNeedsDeploy] = useState<boolean>(false)
+
 	const { exit } = useApp()
 
 	useInput((input, key) => {
@@ -91,6 +93,17 @@ export const Dev: React.FC<DevProps> = ({
 				case 'done':
 					setCurrentPhase('built')
 
+					const allStacksDeployed = Object.entries(event.apps).reduce(
+						(acc, [, apps]) =>
+							Object.entries(apps).reduce(
+								(acc2, [, { isDeployed }]) => acc2 && isDeployed,
+								acc
+							),
+						true
+					)
+
+					setNeedsDeploy(!allStacksDeployed)
+
 					if (event.errors.length > 0) {
 						setErrors((currentErrors) => {
 							let errs =
@@ -132,7 +145,43 @@ export const Dev: React.FC<DevProps> = ({
 
 	return (
 		<Box flexWrap="wrap">
-			<Box width="100%">
+			{needsDeploy ? (
+				<Box width="100%">
+					<Box
+						borderStyle="doubleSingle"
+						borderColor="yellow"
+						flexWrap="wrap"
+						paddingTop={1}
+						paddingRight={2}
+						paddingBottom={1}
+						paddingLeft={2}
+					>
+						<Box width="100%">
+							<Text>
+								{symbols.warning} One of your CDK stacks is not deployed. Some
+								features are limited.
+								<Newline />
+								<Newline />
+								<Text>Run:</Text>
+								<Newline />
+								<Newline />
+								<Text>
+									$ npx cdk deploy
+									{process.env.AWS_PROFILE
+										? ` --profile=${process.env.AWS_PROFILE}`
+										: ''}
+								</Text>
+								<Newline />
+								<Newline />
+								<Text>
+									After you deploy the stack press &quot;Enter&quot; to rebuild.
+								</Text>
+							</Text>
+						</Box>
+					</Box>
+				</Box>
+			) : null}
+			<Box width="100%" paddingTop={1}>
 				{typeof errors !== 'undefined' && errors.length > 0 ? (
 					<Text>
 						<Text>{symbols.error} Error occurred</Text>
@@ -169,7 +218,7 @@ export const Dev: React.FC<DevProps> = ({
 				<Text dimColor>
 					<Text>Press &quot;q&quot; to quit</Text>
 					<Newline />
-					<Text>Press &quot;enter&quot; to rebuild</Text>
+					<Text>Press &quot;Enter&quot; to rebuild</Text>
 				</Text>
 			</Box>
 		</Box>

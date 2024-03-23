@@ -118,7 +118,7 @@ export const tryToFetchDeployedStack = async (
 
 		for await (const stacks of paginate(
 			async (next) =>
-				stackId !== null
+				stackId === null
 					? cfn
 							.describeStacks({
 								StackName: stack.metadata.stackName,
@@ -255,8 +255,8 @@ export const extractAppsFromStacks = async (
 ): Promise<Apps> => {
 	const acc: Apps = {}
 
-	for (const [stackId, stackData] of Object.entries(stacks)) {
-		acc[stackId] = {}
+	for (const [stackLogicalId, stackData] of Object.entries(stacks)) {
+		acc[stackLogicalId] = {}
 
 		const key = `${stackData.metadata.stackName}__${stackData.metadata.env}`
 		const deployedStackData =
@@ -309,7 +309,8 @@ export const extractAppsFromStacks = async (
 					Properties.AppId[0] === rawAppId
 			)
 
-			acc[stackId][rawAppId] = {
+			acc[stackLogicalId][rawAppId] = {
+				isDeployed: deployedStackData.stackId !== null,
 				executionRoleArn: rawAppTemplate.Properties.ExecutionRoleArn,
 				executionRoleExternalId:
 					typeof rawAppTemplate.Properties.ExecutionRoleExternalId === 'string'
